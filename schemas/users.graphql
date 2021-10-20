@@ -1,0 +1,55 @@
+type User {
+    id: ID!
+    createdAt: Time!
+    username: String!
+    email: String!
+    password: String!
+    authority: Int!
+}
+
+type UserResponse {
+    message: String!
+    status: Int!
+    data: User  # For single record
+    dataList: [User] # For array of records.
+}
+
+input CreateUserRequest {
+  username: String!
+  email: String!
+  password: String!
+  authority: Int!
+}
+
+input DeleteUserRequest {
+  id: ID!
+}
+
+input UpdateUserRequest {
+  username: String!,
+  email: String!,
+  password: String!,
+  authority: Int!
+}
+
+input AuthorizeUserRequest {
+  username: String!,
+  password: String!
+}
+
+input GetOneUserRequest {
+  id: ID!
+}
+
+
+extend type Mutation {
+    CreateUser(request: CreateUserRequest): UserResponse
+    DeleteUserByID(request: DeleteUserRequest): UserResponse
+    UpdateUser(request: UpdateUserRequest): UserResponse
+}
+
+extend type Query {
+    GetOneUser(request: GetOneUserRequest): UserResponse
+    GetAllUsers: UserResponse
+    AuthorizeUser(request: AuthorizeUserRequest): JWTResponse
+}

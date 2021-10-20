@@ -1,0 +1,84 @@
+type Habit {
+    id: ID!
+    name: String!
+}
+
+input InitHabitRequest {
+
+    name: String!
+}
+input UpdateHabitRequest {
+    id: ID!
+    name: String!
+}
+
+input DeleteHabitRequest {
+    id: ID!
+}
+
+union HabitOrHabitLog = Habit | HabitLog
+
+type HabitResponse {
+    message: String!
+    status: Int!
+    data: Habit  #For single record
+    dataList: [Habit] # For array of records.
+}
+
+type HabitLogResponse {
+    message: String!
+    status: Int!
+    data: HabitLog #For single record
+    dataList: [HabitLog] # For array of records.
+}
+
+type HabitLog {
+    id: ID!
+    date: String!
+    type: ID!
+    note: String!
+}
+
+input LogHabitRequest {
+    type: String!
+    note: String!
+    date: String!
+}
+
+input UpdateHabitLogRequest {
+    id: ID!
+    type: String!
+    note: String!
+    date: String!
+}
+
+input DeleteHabitLogRequest {
+    id: ID!
+}
+
+input GetHabitLogByIDRequest {
+    id: ID!
+}
+input GetHabitByIDRequest {
+    id: ID!
+}
+
+type Mutation {
+    InitHabit(request: InitHabitRequest): HabitResponse
+    UpdateHabit(request: UpdateHabitRequest): HabitResponse
+    DeleteHabit(request: DeleteHabitRequest): HabitResponse
+
+
+    LogHabit(request: LogHabitRequest): HabitLogResponse
+    UpdateHabitLog(request: UpdateHabitLogRequest): HabitLogResponse
+    DeleteHabitLog(request: DeleteHabitLogRequest): HabitLogResponse
+ }
+
+type Query {
+    GetHabitLogIDByHabit(request: LogHabitRequest): HabitLogResponse
+    GetHabitIDByName(request: InitHabitRequest): HabitResponse
+    GetHabitLogByID(request: GetHabitLogByIDRequest): HabitLogResponse
+    GetHabitByID(request: GetHabitByIDRequest): HabitResponse
+    GetAllHabitLogs: HabitLogResponse
+    GetAllHabits: HabitResponse
+}

@@ -1,0 +1,24 @@
+CREATE TABLE HABITS(
+	id VARCHAR(20) NOT NULL,
+	name VARCHAR(20) NOT NULL,
+	PRIMARY KEY (id)
+);
+
+CREATE TABLE HABIT_LOGS(
+	id VARCHAR(20) NOT NULL,
+	date VARCHAR(20) NOT NULL,
+	type VARCHAR(20) NOT NULL,
+	note BLOB NOT NULL,
+	PRIMARY KEY (id)
+	FOREIGN KEY(type) REFERENCES HABITS (id)
+);
+
+CREATE TABLE USERS (
+	id text,
+	created_at datetime,
+	username text,
+	email text,
+	password text,
+	authority integer,
+	PRIMARY KEY (id)
+);

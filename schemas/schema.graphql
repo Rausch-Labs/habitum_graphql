@@ -1,0 +1,20 @@
+scalar Time
+
+type JWT {
+    token: String!
+}
+
+type JWTResponse {
+    message: String!
+    status: Int!
+    jwt: JWT # For single record
+    jwts: [JWT] # For array of records.
+}
+
+extend type Query {
+    Ping: PingResponse
+}
+
+type PingResponse {
+    status: Int!
+}
